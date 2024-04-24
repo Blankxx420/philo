@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/08 21:25:59 by brguicho          #+#    #+#             */
-/*   Updated: 2024/04/25 00:05:02 by brguicho         ###   ########.fr       */
+/*   Created: 2024/04/14 06:56:53 by brguicho          #+#    #+#             */
+/*   Updated: 2024/04/25 00:07:49 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int argc, char **argv)
+size_t	ft_get_current_time(void)
 {
-	if (argc > 4 && argc < 7)
-	{
-		if (ft_philo(argc, argv))
-		{
-			write(2, "Error\n", 6);
-			return (1);
-		}
-	}
-	else
-	{
-		write(2, "Error\n", 6);
-		return (1);
-	}
+	struct timeval	time;
+
+	if (gettimeofday(&time, NULL) == -1)
+		write(2, "gettimeofday() error\n", 22);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
+}
+
+int	ft_usleep(size_t milliseconds)
+{
+	size_t	start;
+
+	start = get_current_time();
+	while ((get_current_time() - start) < milliseconds)
+		usleep(500);
 	return (0);
 }

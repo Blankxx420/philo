@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/08 21:25:59 by brguicho          #+#    #+#             */
-/*   Updated: 2024/04/25 00:05:02 by brguicho         ###   ########.fr       */
+/*   Created: 2024/04/24 21:10:28 by brguicho          #+#    #+#             */
+/*   Updated: 2024/04/25 00:04:39 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int argc, char **argv)
+size_t	ft_atouli(char *str)
 {
-	if (argc > 4 && argc < 7)
+	size_t	i;
+	size_t	sum;
+
+	i = 0;
+	while (str[i])
 	{
-		if (ft_philo(argc, argv))
-		{
-			write(2, "Error\n", 6);
-			return (1);
-		}
+		sum = sum * 10 + str[i] - '0';
+		i++;
 	}
-	else
-	{
-		write(2, "Error\n", 6);
-		return (1);
-	}
-	return (0);
+	return (sum);
 }
