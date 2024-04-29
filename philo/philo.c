@@ -6,12 +6,33 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 21:34:37 by brguicho          #+#    #+#             */
-/*   Updated: 2024/04/25 00:07:36 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/04/29 11:02:00 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+static void	set_philo_var(t_thread thread)
+{
+	pthread_mutex_init(&thread.left_fork, NULL);
+	pthread_mutex_init(&thread.right_fork, NULL);
+	thread.thread = pthread_create(thread.thread)
+}
+
+static void	init_philo(t_data *data)
+{
+	int i;
+
+	data->philo = ft_calloc(sizeof(t_thread *), data->info.nbr_philo);
+	if (data->philo)
+		return ;
+	while (data->philo[i])
+	{
+		set_philo_var(data->philo[i]);
+		i++;
+	}
+	
+}
 static void	set_info(t_info *info, int argc, char **argv)
 {
 	info->nbr_philo = ft_atouli(argv[1]);
@@ -33,10 +54,10 @@ static void	init(t_info *info)
 
 int	ft_philo(int argc, char **argv)
 {
-	t_info	info;
+	t_data data;
 
-	init(&info);
+	init(&data.info);
 	if (!argv_are_digits(argv))
 		return (1);
-	set_info(&info, argc, argv);
+	set_info(&data.info, argc, argv);
 }

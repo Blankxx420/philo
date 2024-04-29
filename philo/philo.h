@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 21:28:12 by brguicho          #+#    #+#             */
-/*   Updated: 2024/04/25 00:07:24 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/04/29 10:56:21 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@
 # include <string.h>
 # include <sys/time.h>
 
+# define PENDING 10
+# define RUNNING 64
+# define STOP 16
+
 typedef struct s_info
 {
 	int		nbr_philo;
@@ -29,13 +33,19 @@ typedef struct s_info
 	int		nbr_time_to_eat;
 }				t_info;
 
+typedef struct s_data
+{
+	t_info			info;
+	t_thread		**philo;
+}				t_data;
+
 typedef struct s_thread
 {
-	pthread_t	thread;
-	int			id;
-	t_info		info;
-	int			left_fork;
-	int			right_fork;
+	pthread_mutex_t	left_fork;
+	int				nbr_meals_eaten;
+	pthread_mutex_t	right_fork;
+	pthread_t		thread;
+	int				state;
 }				t_thread;
 
 int		ft_philo(int argc, char **argv);
