@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 10:50:53 by brguicho          #+#    #+#             */
-/*   Updated: 2024/04/25 00:07:57 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/05/02 10:05:22 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	argv_are_digits(char **argv)
 	int	i;
 	int	j;
 
-	i = 0;
+	i = 1;
 	while (argv[i])
 	{
 		j = 0;
