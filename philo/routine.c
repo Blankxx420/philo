@@ -6,9 +6,18 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 10:06:19 by brguicho          #+#    #+#             */
-/*   Updated: 2024/04/29 10:06:40 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/05/06 10:36:57 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+
+
+void	*ft_routine(void *data)
+{
+	int i;
+	ft_usleep(50);
+	
+	
+}

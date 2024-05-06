@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 21:28:12 by brguicho          #+#    #+#             */
-/*   Updated: 2024/05/02 10:41:18 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/05/06 10:50:45 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,12 @@
 # include <string.h>
 # include <sys/time.h>
 
-# define PENDING 10
-# define RUNNING 64
-# define STOP 16
+# define EATING 1
+# define SLEEPING 2
+# define THINKING 3
+# define WAITING 4
+# define END 5
+# define DEAD 6
 
 typedef struct s_info
 {
@@ -35,10 +38,12 @@ typedef struct s_info
 
 typedef struct s_thread
 {
-	pthread_mutex_t	left_fork;
+	pthread_mutex_t	fork;
+	int				left_fork;
 	int				nbr_meals_eaten;
-	pthread_mutex_t	right_fork;
+	int				right_fork;
 	pthread_t		thread;
+	pthread_mutex_t	states;
 	int				state;
 }				t_thread;
 
@@ -54,6 +59,7 @@ void	set_info(t_info *info, int argc, char **argv);
 void	init(t_info *info);
 
 int		ft_philo(int argc, char **argv);
+void	*ft_routine(void *data);
 int		argv_are_digits(char **argv);
 size_t	ft_atouli(char *str);
 size_t	ft_get_current_time(void);

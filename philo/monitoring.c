@@ -6,18 +6,21 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 10:06:48 by brguicho          #+#    #+#             */
-/*   Updated: 2024/05/02 10:41:29 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/05/06 10:51:04 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	*ft_print_is_eating(void *ptr)
+void	*ft_print_is_eating(t_thread *thread)
 {
 	size_t time;
-	
+	pthread_mutex_lock(&thread->states);
+	thread->state = EATING;
+	thread->nbr_meals_eaten++;
+	pthread_mutex_unlock(&thread->states);
 	time = ft_get_current_time();
-	printf("%ld %p is eating\n", time, ptr);
+	printf("%ld %d is eating\n", time, thread->thread);
 	return ((void *)time);
 }
 
