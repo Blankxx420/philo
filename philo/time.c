@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 06:56:53 by brguicho          #+#    #+#             */
-/*   Updated: 2024/05/02 10:01:36 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/05/07 10:11:10 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,6 @@ int	ft_usleep(size_t milliseconds)
 
 	start = ft_get_current_time();
 	while ((ft_get_current_time() - start) < milliseconds)
-		usleep(500);
+		usleep(1);
 	return (0);
 }

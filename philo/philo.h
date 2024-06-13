@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 21:28:12 by brguicho          #+#    #+#             */
-/*   Updated: 2024/05/06 10:50:45 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/13 14:27:18 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,13 @@
 # include <string.h>
 # include <sys/time.h>
 
-# define EATING 1
-# define SLEEPING 2
-# define THINKING 3
-# define WAITING 4
-# define END 5
-# define DEAD 6
+# define DEAD 0
+# define START 1
+# define EATING 2
+# define SLEEPING 3
+# define THINKING 4
+# define WAITING 5
+# define END 6
 
 typedef struct s_info
 {
@@ -36,15 +37,19 @@ typedef struct s_info
 	int		nbr_time_to_eat;
 }				t_info;
 
+struct s_data;
+
 typedef struct s_thread
 {
 	pthread_mutex_t	fork;
-	int				left_fork;
+	int				id;
+	int				*left_fork;
 	int				nbr_meals_eaten;
 	int				right_fork;
 	pthread_t		thread;
 	pthread_mutex_t	states;
 	int				state;
+	struct s_data	*data;
 }				t_thread;
 
 typedef struct s_data
@@ -66,7 +71,9 @@ size_t	ft_get_current_time(void);
 int		ft_usleep(size_t milliseconds);
 void	ft_bzero(void *dest, unsigned int size);
 void	*ft_calloc(size_t elementcount, size_t elementcize);
+void	free_philos(t_thread **philo);
 
-
-void	*ft_print_is_eating(void *);
+void	*ft_print_is_eating(void *data);
+void	ft_print_has_taken_fork_r(t_thread *thread);
+void	ft_print_has_taken_fork_l(t_thread *thread);
 #endif

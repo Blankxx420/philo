@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 21:10:28 by brguicho          #+#    #+#             */
-/*   Updated: 2024/05/02 09:48:55 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/13 10:32:12 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,17 @@ void	*ft_calloc(size_t elementcount, size_t elementcize)
 		return (NULL);
 	ft_bzero(tab, elementcount * elementcize);
 	return (tab);
+}
+
+void	free_philos(t_thread **philo)
+{
+	int	i;
+
+	i = 0;
+	while (philo[i])
+	{
+		free(philo[i]);
+		i++;
+	}
+	free(philo);
 }
