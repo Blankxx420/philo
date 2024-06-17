@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 21:10:28 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/13 10:32:12 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/17 09:39:08 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ size_t	ft_atouli(char *str)
 	size_t	sum;
 
 	i = 0;
+	sum = 0;
 	while (str[i])
 	{
 		sum = sum * 10 + str[i] - '0';

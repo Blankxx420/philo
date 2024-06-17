@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 21:28:12 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/13 14:27:18 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/17 10:59:57 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,27 +41,29 @@ struct s_data;
 
 typedef struct s_thread
 {
-	pthread_mutex_t	fork;
 	int				id;
 	int				*left_fork;
 	int				nbr_meals_eaten;
 	int				right_fork;
 	pthread_t		thread;
-	pthread_mutex_t	states;
 	int				state;
 	struct s_data	*data;
 }				t_thread;
 
 typedef struct s_data
 {
-	t_info			info;
+	t_info			*info;
 	t_thread		**philo;
+	pthread_mutex_t	fork;
+	pthread_mutex_t	states;
 }				t_data;
 
 void	set_philo_var(t_thread *thread);
 void	init_philo(t_data *data);
 void	set_info(t_info *info, int argc, char **argv);
 void	init(t_info *info);
+void	start_thread(t_data *data);
+int 	check_dead_main(t_data *data);
 
 int		ft_philo(int argc, char **argv);
 void	*ft_routine(void *data);

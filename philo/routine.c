@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 10:06:19 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/13 14:27:26 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/17 10:57:09 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,15 @@ int can_philo_take_fork(t_thread *thread)
 	return (0);
 }
 
-int	check_dead(t_data *data)
+int	check_dead(t_thread *thread)
 {
-	int i;
-
-	i = 0;
-	while (data->philo[i])
+	pthread_mutex_lock(&thread->states);
+	if (thread->state == DEAD)
 	{
-		if (data->philo[i]->state == DEAD)
-			return (1);
-		i++;
+		pthread_mutex_unlock(&thread->states);
+		return (1);
 	}
+	pthread_mutex_unlock(&thread->states);
 	return (0);
 }
 
@@ -47,15 +45,17 @@ void	*ft_routine(void *threads)
 	t_thread	*thread;
 
 	thread = (t_thread *)threads;
-	while (!check_dead(thread->data))
+	if (thread->id % 2 == 0)
 	{
-		if (thread->id % 2 == 0)
-		{
-			pthread_mutex_unlock(&thread->states);
-			thread->state = WAITING;
-			ft_usleep(10);
-		}
+		pthread_mutex_lock(&thread->states);
+		thread->state = WAITING;
+		pthread_mutex_unlock(&thread->states);
+		usleep(100);
+	}
+	while (!check_dead(thread))
+	{
 		can_philo_take_fork(thread);
+		usleep(100);
 	}
 	return ((void *)thread);
 }
