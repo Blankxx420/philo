@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 21:34:37 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/17 10:55:25 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/18 09:26:41 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ int check_dead_main(t_data *data)
 	i = 0;
 	while (data->philo[i])
 	{
-		pthread_mutex_lock(&data->philo[i]->states);
+		pthread_mutex_lock(&data->states);
 		if (data->philo[i]->state == DEAD)
 		{
-			pthread_mutex_unlock(&data->philo[i]->states);
+			pthread_mutex_unlock(&data->states);
 			return (1);
 		}
-		pthread_mutex_unlock(&data->philo[i]->states);
+		pthread_mutex_unlock(&data->states);
 		i++;
 		usleep(100);
 	}

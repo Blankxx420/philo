@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 10:41:51 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/17 10:33:34 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/21 09:29:38 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	init_philo(t_data *data)
 	int	i;
 	int	id;
 
+	pthread_mutex_init(&data->fork, NULL);
+	pthread_mutex_init(&data->states, NULL);
 	data->philo = ft_calloc(data->info->nbr_philo + 1, sizeof(t_thread *));
 	if (!data->philo)
 		return ;
@@ -30,8 +32,6 @@ void	init_philo(t_data *data)
 			free_philos(data->philo);
 			return ;
 		}
-		pthread_mutex_init(&data->philo[i]->fork, NULL);
-		pthread_mutex_init(&data->philo[i]->states, NULL);
 		data->philo[i]->state = START;
 		data->philo[i]->nbr_meals_eaten = 0;
 		data->philo[i]->right_fork = 1;
@@ -63,15 +63,13 @@ void	set_info(t_info *info, int argc, char **argv)
 	info->time_to_die = ft_atouli(argv[2]);
 	info->time_to_eat = ft_atouli(argv[3]);
 	info->time_to_sleep = ft_atouli(argv[4]);
+	info->nbr_time_to_eat = -1;
 	if (argc == 6)
 	{
 		info->nbr_time_to_eat = ft_atouli(argv[5]);
 		if (info->nbr_time_to_eat <= 0)
 			return ;
 	}
-	if (info->nbr_philo <= 0 || info->time_to_die < 200
-		|| info->time_to_eat < 200 || info->time_to_eat < 200)
-		return ;
 }
 
 void	init(t_info *info)

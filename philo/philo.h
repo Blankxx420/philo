@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 21:28:12 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/17 10:59:57 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/21 10:31:34 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_thread
 {
 	int				id;
 	int				*left_fork;
+	size_t			last_timestamp;
 	int				nbr_meals_eaten;
 	int				right_fork;
 	pthread_t		thread;
@@ -75,7 +76,9 @@ void	ft_bzero(void *dest, unsigned int size);
 void	*ft_calloc(size_t elementcount, size_t elementcize);
 void	free_philos(t_thread **philo);
 
-void	*ft_print_is_eating(void *data);
+int 	start_eating(t_thread *thread);
+void	ft_print_is_eating(t_thread *thread);
 void	ft_print_has_taken_fork_r(t_thread *thread);
 void	ft_print_has_taken_fork_l(t_thread *thread);
+void	ft_print_is_sleeping(t_thread *thread);
 #endif
