@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 10:06:19 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/21 10:31:02 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/25 15:00:54 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,14 @@ int is_philo_dead(t_thread *thread)
 int start_eating(t_thread *thread)
 {
 	pthread_mutex_lock(&thread->data->fork);
-	ft_print_is_eating(thread);
 	thread->state = EATING;
-	ft_usleep(thread->data->info->time_to_eat);
+	ft_print_is_eating(thread);
+	usleep(thread->data->info->time_to_eat * 1000);
 	if (is_philo_dead(thread))
+	{
 		pthread_mutex_unlock(&thread->data->fork);
 		return (1);
+	}
 	thread->nbr_meals_eaten++;
 	thread->right_fork = 1;
 	*thread->left_fork = 1;
@@ -48,10 +50,12 @@ int start_sleeping(t_thread *thread)
 	pthread_mutex_lock(&thread->data->states);
 	thread->state = SLEEPING;
 	ft_print_is_sleeping(thread);
-	ft_usleep(thread->data->info->time_to_sleep);
+	usleep(thread->data->info->time_to_sleep * 1000);
 	if (is_philo_dead(thread))
+	{
 		pthread_mutex_unlock(&thread->data->states);
 		return (1);
+	}
 	pthread_mutex_unlock(&thread->data->states);
 	return (0);
 }
@@ -89,18 +93,26 @@ void	*ft_routine(void *threads)
 	t_thread	*thread;
 
 	thread = (t_thread *)threads;
+
+	wait_all_philo(thread->data);
+	pthread_mutex_lock(&thread->data->fork);
+	thread->data->start_time = ft_get_current_time();
+	pthread_mutex_unlock(&thread->data->fork);
 	if (thread->id % 2 == 0)
 	{
 		pthread_mutex_lock(&thread->data->states);
 		thread->state = WAITING;
 		pthread_mutex_unlock(&thread->data->states);
 		usleep(100);
+		pthread_mutex_lock(&thread->data->states);
+		thread->state = START;
+		pthread_mutex_unlock(&thread->data->states);
 	}
 	while (!check_dead(thread))
 	{
 		if (can_philo_take_fork(thread))
 		{
-			if(start_eating(thread));
+			if(start_eating(thread))
 				break;
 			if (start_sleeping(thread))
 				break;

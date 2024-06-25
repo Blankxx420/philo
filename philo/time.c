@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 06:56:53 by brguicho          #+#    #+#             */
-/*   Updated: 2024/05/07 10:11:10 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/25 14:59:35 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,3 @@ size_t	ft_get_current_time(void)
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
-int	ft_usleep(size_t milliseconds)
-{
-	size_t	start;
-
-	start = ft_get_current_time();
-	while ((ft_get_current_time() - start) < milliseconds)
-		usleep(1);
-	return (0);
-}

@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 10:41:51 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/21 09:29:38 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/25 15:33:23 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	init_philo(t_data *data)
 
 	pthread_mutex_init(&data->fork, NULL);
 	pthread_mutex_init(&data->states, NULL);
+	pthread_mutex_init(&data->ready, NULL);
+	data->flag_rdy = 0;
 	data->philo = ft_calloc(data->info->nbr_philo + 1, sizeof(t_thread *));
 	if (!data->philo)
 		return ;
@@ -55,6 +57,9 @@ void	start_thread(t_data *data)
 		pthread_create(&data->philo[i]->thread, NULL, &ft_routine, (void *)data->philo[i]);
 		i++;
 	}
+	pthread_mutex_lock(&data->ready);
+	data->flag_rdy = 1;
+	pthread_mutex_unlock(&data->ready);
 }
 
 void	set_info(t_info *info, int argc, char **argv)

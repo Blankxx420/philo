@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 21:28:12 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/21 10:31:34 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/25 15:37:48 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,9 @@ typedef struct s_data
 	t_thread		**philo;
 	pthread_mutex_t	fork;
 	pthread_mutex_t	states;
+	pthread_mutex_t ready;
+	int				flag_rdy;
+	size_t			start_time;
 }				t_data;
 
 void	set_philo_var(t_thread *thread);
@@ -65,6 +68,7 @@ void	set_info(t_info *info, int argc, char **argv);
 void	init(t_info *info);
 void	start_thread(t_data *data);
 int 	check_dead_main(t_data *data);
+void	wait_all_philo(t_data *data);
 
 int		ft_philo(int argc, char **argv);
 void	*ft_routine(void *data);
@@ -81,4 +85,7 @@ void	ft_print_is_eating(t_thread *thread);
 void	ft_print_has_taken_fork_r(t_thread *thread);
 void	ft_print_has_taken_fork_l(t_thread *thread);
 void	ft_print_is_sleeping(t_thread *thread);
+void	ft_putstr_fd(char *s, int fd);
+void	ft_putnbr_fd(int n, int fd);
+void	ft_putchar_fd(char c, int fd);
 #endif
