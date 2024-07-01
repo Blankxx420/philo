@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 10:41:51 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/25 15:33:23 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/07/01 10:02:50 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,22 @@ void	init_philo(t_data *data)
 	int	i;
 	int	id;
 
-	pthread_mutex_init(&data->fork, NULL);
+	pthread_mutex_init(&data->meal, NULL);
 	pthread_mutex_init(&data->states, NULL);
 	pthread_mutex_init(&data->ready, NULL);
+	pthread_mutex_init(&data->main_state, NULL);
+	pthread_mutex_init(&data->print, NULL);
 	data->flag_rdy = 0;
+	data->flag_dead = 0;
 	data->philo = ft_calloc(data->info->nbr_philo + 1, sizeof(t_thread *));
+	data->fork = ft_calloc(data->info->nbr_philo + 1, sizeof(pthread_mutex_t));
 	if (!data->philo)
 		return ;
 	i = 0;
 	id = 1;
 	while (i < data->info->nbr_philo)
 	{
+
 		data->philo[i] = ft_calloc(1, sizeof(t_thread));
 		if (!data->philo[i])
 		{
@@ -36,8 +41,7 @@ void	init_philo(t_data *data)
 		}
 		data->philo[i]->state = START;
 		data->philo[i]->nbr_meals_eaten = 0;
-		data->philo[i]->right_fork = 1;
-		data->philo[i]->left_fork = 0;
+		pthread_mutex_init(&data->fork[i], NULL);
 		data->philo[i]->id = id;
 		data->philo[i]->data = data;
 		data->philo[i]->thread = 0;
@@ -53,10 +57,10 @@ void	start_thread(t_data *data)
 	i = 0;
 	while (i < data->info->nbr_philo)
 	{
-		data->philo[i]->left_fork = &data->philo[data->info->nbr_philo - 1 - i]->right_fork;
-		pthread_create(&data->philo[i]->thread, NULL, &ft_routine, (void *)data->philo[i]);
+		pthread_create(&data->philo[i]->thread, NULL, &ft_routine, data->philo[i]);
 		i++;
 	}
+	i = 0;
 	pthread_mutex_lock(&data->ready);
 	data->flag_rdy = 1;
 	pthread_mutex_unlock(&data->ready);

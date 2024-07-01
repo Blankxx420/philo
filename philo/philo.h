@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 21:28:12 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/25 15:37:48 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/07/01 10:02:25 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,8 @@ struct s_data;
 typedef struct s_thread
 {
 	int				id;
-	int				*left_fork;
 	size_t			last_timestamp;
 	int				nbr_meals_eaten;
-	int				right_fork;
 	pthread_t		thread;
 	int				state;
 	struct s_data	*data;
@@ -55,10 +53,15 @@ typedef struct s_data
 {
 	t_info			*info;
 	t_thread		**philo;
-	pthread_mutex_t	fork;
+	pthread_mutex_t	*fork;
+	pthread_mutex_t	meal;
 	pthread_mutex_t	states;
+	pthread_mutex_t	dead;
 	pthread_mutex_t ready;
+	pthread_mutex_t print;
+	pthread_mutex_t main_state;
 	int				flag_rdy;
+	int				flag_dead;
 	size_t			start_time;
 }				t_data;
 
@@ -85,7 +88,4 @@ void	ft_print_is_eating(t_thread *thread);
 void	ft_print_has_taken_fork_r(t_thread *thread);
 void	ft_print_has_taken_fork_l(t_thread *thread);
 void	ft_print_is_sleeping(t_thread *thread);
-void	ft_putstr_fd(char *s, int fd);
-void	ft_putnbr_fd(int n, int fd);
-void	ft_putchar_fd(char c, int fd);
 #endif

@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 10:06:48 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/25 15:42:13 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/27 09:56:59 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,10 @@
 void	ft_print_is_eating(t_thread *thread)
 {
 	size_t time;
+	pthread_mutex_lock(&thread->data->print);
 	time = ft_get_current_time() - thread->data->start_time;
-	ft_putnbr_fd(time, 1);
-	ft_putchar_fd(' ', 1);
-	ft_putnbr_fd(thread->id, 1);
-	ft_putstr_fd(" is eating\n", 1);
+	printf("%ld %d is eating\n", time, thread->id);
+	pthread_mutex_unlock(&thread->data->print);
 }
 
 // void	ft_print_is_thinking(t_thread *thread)
@@ -34,33 +33,30 @@ void	ft_print_is_sleeping(t_thread *thread)
 {
 	size_t time;
 	
+	pthread_mutex_lock(&thread->data->print);
 	time = ft_get_current_time() - thread->data->start_time;
-	ft_putnbr_fd(time, 1);
-	ft_putchar_fd(' ', 1);
-	ft_putnbr_fd(thread->id, 1);
-	ft_putstr_fd(" is sleeping\n", 1);
+	printf("%ld %d is sleeping\n", time, thread->id);
+	pthread_mutex_unlock(&thread->data->print);
 }
 
 void	ft_print_has_taken_fork_r(t_thread *thread)
 {
 	size_t time;
 	
+	pthread_mutex_lock(&thread->data->print);
 	time = ft_get_current_time() - thread->data->start_time;
-	ft_putnbr_fd(time, 1);
-	ft_putchar_fd(' ', 1);
-	ft_putnbr_fd(thread->id, 1);
-	ft_putstr_fd(" has taken rigth fork\n", 1);
+	printf("%ld %d has taken right fork\n", time, thread->id);
+	pthread_mutex_unlock(&thread->data->print);
 }
 
 void	ft_print_has_taken_fork_l(t_thread *thread)
 {
 	size_t time;
 	
+	pthread_mutex_lock(&thread->data->print);
 	time = ft_get_current_time() - thread->data->start_time;
-	ft_putnbr_fd(time, 1);
-	ft_putchar_fd(' ', 1);
-	ft_putnbr_fd(thread->id, 1);
-	ft_putstr_fd(" has taken left fork\n", 1);
+	printf("%ld %d has taken left fork\n", time, thread->id);
+	pthread_mutex_unlock(&thread->data->print);
 }
 
 void	wait_all_philo(t_data *data)
