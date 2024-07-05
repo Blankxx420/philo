@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 21:28:12 by brguicho          #+#    #+#             */
-/*   Updated: 2024/07/05 12:12:07 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/07/05 23:56:44 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,6 @@
 # include <string.h>
 # include <sys/time.h>
 
-# define DEAD 0
-# define START 1
-# define EATING 2
-# define SLEEPING 3
-# define THINKING 4
-# define WAITING 5
-# define END 6
-
-
-
 typedef struct s_info
 {
 	int		nbr_philo;
@@ -39,7 +29,7 @@ typedef struct s_info
 	int		nbr_time_to_eat;
 }				t_info;
 
-struct s_data;
+struct	s_data;
 
 typedef struct s_thread
 {
@@ -47,8 +37,8 @@ typedef struct s_thread
 	size_t			last_timestamp;
 	int				nbr_meals_eaten;
 	pthread_t		thread;
-	pthread_mutex_t *left_fork;
-	pthread_mutex_t *own_fork;
+	pthread_mutex_t	*left_fork;
+	pthread_mutex_t	*own_fork;
 	int				state;
 	struct s_data	*data;
 }				t_thread;
@@ -58,11 +48,9 @@ typedef struct s_data
 	t_info			*info;
 	t_thread		*philo;
 	pthread_mutex_t	meal;
-	pthread_mutex_t	states;
 	pthread_mutex_t	dead;
-	pthread_mutex_t ready;
-	pthread_mutex_t print;
-	pthread_mutex_t main_state;
+	pthread_mutex_t	ready;
+	pthread_mutex_t	print;
 	int				flag_rdy;
 	int				flag_dead;
 	size_t			start_time;
@@ -75,7 +63,7 @@ void	init(t_info *info);
 int		init_data(t_data *data);
 
 void	start_thread(t_data *data);
-int 	check_dead_main(t_data *data);
+int		check_dead_main(t_data *data);
 void	wait_all_philo(t_data *data);
 
 int		ft_philo(int argc, char **argv);
@@ -86,10 +74,13 @@ size_t	ft_get_current_time(void);
 int		ft_usleep(size_t milliseconds);
 void	ft_bzero(void *dest, unsigned int size);
 void	*ft_calloc(size_t elementcount, size_t elementcize);
-void	free_philos(t_thread **philo);
-void 	free_all(t_data *data);
+void	free_philos(t_data *data);
+void	free_all(t_data *data);
+int		check_all_meal_eaten(t_data *data);
+int		check_if_someone_died(t_data *data);
+void	monitoring(t_data *data);
 
-int 	start_eating(t_thread *thread);
+void	start_eating(t_thread *thread);
 void	ft_print_is_eating(t_thread *thread);
 void	ft_print_has_taken_fork_r(t_thread *thread);
 void	ft_print_has_taken_fork_l(t_thread *thread);

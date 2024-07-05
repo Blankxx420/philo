@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 21:34:37 by brguicho          #+#    #+#             */
-/*   Updated: 2024/07/05 11:55:18 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/07/05 23:58:17 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 int	ft_philo(int argc, char **argv)
 {
-	t_data *data;
-	data = ft_calloc(1 , sizeof(t_data));
+	t_data	*data;
+
+	data = ft_calloc(1, sizeof(t_data));
 	if (!data)
 		return (1);
 	data->info = ft_calloc(1, sizeof(t_info));
@@ -28,16 +29,5 @@ int	ft_philo(int argc, char **argv)
 	init_data(data);
 	init_philo(data);
 	start_thread(data);
-	while(1)
-	{
-		pthread_mutex_lock(&data->main_state);
-		if (data->flag_dead == 1)
-		{
-			pthread_mutex_unlock(&data->main_state);
-			break;
-		}
-		pthread_mutex_unlock(&data->main_state);
-		usleep(100);
-	}
 	return (0);
 }

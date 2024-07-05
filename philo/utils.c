@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 21:10:28 by brguicho          #+#    #+#             */
-/*   Updated: 2024/07/03 13:38:36 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/07/05 23:12:36 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,23 +60,33 @@ void	*ft_calloc(size_t elementcount, size_t elementcize)
 	return (tab);
 }
 
-void	free_philos(t_thread **philo)
+void	free_philos(t_data *data)
 {
 	int	i;
 
 	i = 0;
-	while (philo[i])
+	while (i < data->info->nbr_philo)
 	{
-		free(philo[i]->left_fork);
-		free(philo[i]);
+		if (data->philo[i].own_fork)
+		{
+			pthread_mutex_destroy(data->philo[i].own_fork);
+			free(data->philo[i].own_fork);
+		}
 		i++;
 	}
-	free(philo);
+	pthread_mutex_destroy(&data->dead);
+	pthread_mutex_destroy(&data->meal);
+	pthread_mutex_destroy(&data->print);
+	pthread_mutex_destroy(&data->ready);
+	free(data->philo);
 }
 
-void free_all(t_data *data)
+void	free_all(t_data *data)
 {
-	free_philos(&data->philo);
-	free(data->info);
-	free(data);
+	if (data->philo)
+		free_philos(data);
+	if (data->info)
+		free(data->info);
+	if (data)
+		free(data);
 }
