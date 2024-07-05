@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 21:28:12 by brguicho          #+#    #+#             */
-/*   Updated: 2024/07/01 10:02:25 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/07/05 12:12:07 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # define WAITING 5
 # define END 6
 
+
+
 typedef struct s_info
 {
 	int		nbr_philo;
@@ -45,6 +47,8 @@ typedef struct s_thread
 	size_t			last_timestamp;
 	int				nbr_meals_eaten;
 	pthread_t		thread;
+	pthread_mutex_t *left_fork;
+	pthread_mutex_t *own_fork;
 	int				state;
 	struct s_data	*data;
 }				t_thread;
@@ -52,8 +56,7 @@ typedef struct s_thread
 typedef struct s_data
 {
 	t_info			*info;
-	t_thread		**philo;
-	pthread_mutex_t	*fork;
+	t_thread		*philo;
 	pthread_mutex_t	meal;
 	pthread_mutex_t	states;
 	pthread_mutex_t	dead;
@@ -69,6 +72,8 @@ void	set_philo_var(t_thread *thread);
 void	init_philo(t_data *data);
 void	set_info(t_info *info, int argc, char **argv);
 void	init(t_info *info);
+int		init_data(t_data *data);
+
 void	start_thread(t_data *data);
 int 	check_dead_main(t_data *data);
 void	wait_all_philo(t_data *data);
@@ -82,10 +87,12 @@ int		ft_usleep(size_t milliseconds);
 void	ft_bzero(void *dest, unsigned int size);
 void	*ft_calloc(size_t elementcount, size_t elementcize);
 void	free_philos(t_thread **philo);
+void 	free_all(t_data *data);
 
 int 	start_eating(t_thread *thread);
 void	ft_print_is_eating(t_thread *thread);
 void	ft_print_has_taken_fork_r(t_thread *thread);
 void	ft_print_has_taken_fork_l(t_thread *thread);
 void	ft_print_is_sleeping(t_thread *thread);
+void	ft_print_is_thinking(t_thread *thread);
 #endif

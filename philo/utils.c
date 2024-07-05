@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 21:10:28 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/25 15:47:29 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/07/03 13:38:36 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,16 @@ void	free_philos(t_thread **philo)
 	i = 0;
 	while (philo[i])
 	{
+		free(philo[i]->left_fork);
 		free(philo[i]);
 		i++;
 	}
 	free(philo);
 }
 
+void free_all(t_data *data)
+{
+	free_philos(&data->philo);
+	free(data->info);
+	free(data);
+}

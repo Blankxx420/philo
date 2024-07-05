@@ -6,7 +6,7 @@
 #    By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/08 21:18:37 by brguicho          #+#    #+#              #
-#    Updated: 2024/06/13 11:35:07 by brguicho         ###   ########.fr        #
+#    Updated: 2024/07/05 13:59:48 by brguicho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRCS =	main.c \
 		utils.c \
 		check_argv.c \
 		routine.c \
+		print_philo.c \
 		
 OBJ_DIR = object
 

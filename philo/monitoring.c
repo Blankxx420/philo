@@ -6,58 +6,11 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 10:06:48 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/27 09:56:59 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/07/05 14:05:54 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	ft_print_is_eating(t_thread *thread)
-{
-	size_t time;
-	pthread_mutex_lock(&thread->data->print);
-	time = ft_get_current_time() - thread->data->start_time;
-	printf("%ld %d is eating\n", time, thread->id);
-	pthread_mutex_unlock(&thread->data->print);
-}
-
-// void	ft_print_is_thinking(t_thread *thread)
-// {
-// 	size_t time;
-	
-// 	time = ft_get_current_time();
-// 	printf("%d %d is thinking\n", time, thread->thread);
-// }
-
-void	ft_print_is_sleeping(t_thread *thread)
-{
-	size_t time;
-	
-	pthread_mutex_lock(&thread->data->print);
-	time = ft_get_current_time() - thread->data->start_time;
-	printf("%ld %d is sleeping\n", time, thread->id);
-	pthread_mutex_unlock(&thread->data->print);
-}
-
-void	ft_print_has_taken_fork_r(t_thread *thread)
-{
-	size_t time;
-	
-	pthread_mutex_lock(&thread->data->print);
-	time = ft_get_current_time() - thread->data->start_time;
-	printf("%ld %d has taken right fork\n", time, thread->id);
-	pthread_mutex_unlock(&thread->data->print);
-}
-
-void	ft_print_has_taken_fork_l(t_thread *thread)
-{
-	size_t time;
-	
-	pthread_mutex_lock(&thread->data->print);
-	time = ft_get_current_time() - thread->data->start_time;
-	printf("%ld %d has taken left fork\n", time, thread->id);
-	pthread_mutex_unlock(&thread->data->print);
-}
 
 void	wait_all_philo(t_data *data)
 {
@@ -72,4 +25,27 @@ void	wait_all_philo(t_data *data)
 		pthread_mutex_unlock(&data->ready);
 		usleep(100);
 	}
+}
+int check_all_meal_eaten(t_data *data)
+{
+	int i;
+
+	i = 0;
+	if (data->info->nbr_time_to_eat == -1)
+		return (1);
+	while (i < data->info->nbr_philo)
+	{
+		pthread_mutex_lock(&data->meal);
+		if (data->philo[i].nbr_meals_eaten < data->info->nbr_time_to_eat)
+		{
+			pthread_mutex_unlock(&data->meal);
+			return (1);
+		}
+		i++;
+	}
+	pthread_mutex_unlock(&data->meal);
+	pthread_mutex_lock(&data->dead);
+	data->flag_dead = 1;
+	pthread_mutex_unlock(&data->dead);
+	return (0);
 }
