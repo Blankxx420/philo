@@ -6,13 +6,13 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 10:41:51 by brguicho          #+#    #+#             */
-/*   Updated: 2024/07/09 18:11:48 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/07/10 00:15:25 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	init_philo(t_data *data)
+int	init_philo(t_data *data)
 {
 	int	i;
 
@@ -21,13 +21,11 @@ void	init_philo(t_data *data)
 	{
 		data->philo[i].own_fork = ft_calloc(1, sizeof(pthread_mutex_t));
 		if (!data->philo[i].own_fork)
-		{
-			free_all(data);
-		}
+			return (1);
 		if (pthread_mutex_init(data->philo[i].own_fork, NULL))
-		{
-			free_all(data);
-		}
+			return (1);
+		if (i + 1 < data->info->nbr_philo)
+			data->philo[i + 1].left_fork = data->philo[i].own_fork;
 		data->philo[i].nbr_meals_eaten = 0;
 		data->philo[i].id = i + 1;
 		data->philo[i].data = data;
@@ -35,19 +33,19 @@ void	init_philo(t_data *data)
 		data->philo[i].last_timestamp = 0;
 		i++;
 	}
+	return (0);
 }
 
-void	start_thread(t_data *data)
+int	start_thread(t_data *data)
 {
 	int	i;
 
-	data->philo[0].left_fork = data->philo[data->info->nbr_philo - 1].own_fork;
-	i = 1;
+	i = 0;
 	while (i < data->info->nbr_philo)
 	{
-		data->philo[i].left_fork = data->philo[i - 1].own_fork;
-		pthread_create(&data->philo[i].thread,
-			NULL, &ft_routine, &data->philo[i]);
+		if (pthread_create(&data->philo[i].thread,
+			NULL, &ft_routine, &data->philo[i]))
+			return (1);
 		i++;
 	}
 	pthread_mutex_lock(&data->ready);
@@ -57,20 +55,22 @@ void	start_thread(t_data *data)
 	i = 0;
 	while (i < data->info->nbr_philo)
 	{
-		pthread_join(data->philo[i].thread, NULL);
+		if (pthread_join(data->philo[i].thread, NULL))
+			return (1);
 		i++;
 	}
+	return (0);
 }
 
 int	set_info(t_info *info, int argc, char **argv)
 {
-	info->nbr_philo = ft_atouli(argv[1]);
-	info->time_to_die = ft_atouli(argv[2]);
-	info->time_to_eat = ft_atouli(argv[3]);
-	info->time_to_sleep = ft_atouli(argv[4]);
+	info->nbr_philo = ft_atoll(argv[1]);
+	info->time_to_die = ft_atoll(argv[2]);
+	info->time_to_eat = ft_atoll(argv[3]);
+	info->time_to_sleep = ft_atoll(argv[4]);
 	info->nbr_time_to_eat = -1;
 	if (argc == 6)
-		info->nbr_time_to_eat = ft_atouli(argv[5]);
+		info->nbr_time_to_eat = ft_atoll(argv[5]);
 	if (!check_info(info, argc))
 		return(1);
 	return (0);
@@ -91,19 +91,11 @@ int	init_data(t_data *data)
 		|| pthread_mutex_init(&data->dead, NULL)
 		|| pthread_mutex_init(&data->ready, NULL)
 		|| pthread_mutex_init(&data->print, NULL))
-	{
-		free(data->info);
-		free(data);
 		return (1);
-	}
 	data->flag_rdy = 0;
 	data->flag_dead = 0;
 	data->philo = ft_calloc(data->info->nbr_philo + 1, sizeof(t_thread));
 	if (!data->philo)
-	{
-		free(data->info);
-		free(data);
 		return (1);
-	}
 	return (0);
 }

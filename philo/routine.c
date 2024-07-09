@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 10:06:19 by brguicho          #+#    #+#             */
-/*   Updated: 2024/07/05 23:54:10 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/07/10 00:11:46 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ void	start_eating(t_thread *thread)
 		return ;
 	}
 	pthread_mutex_lock(thread->own_fork);
-	ft_print_has_taken_fork_r(thread);
+	ft_print_has_taken_fork(thread);
 	pthread_mutex_lock(thread->left_fork);
-	ft_print_has_taken_fork_l(thread);
+	ft_print_has_taken_fork(thread);
 	ft_print_is_eating(thread);
 	pthread_mutex_lock(&thread->data->meal);
 	thread->nbr_meals_eaten++;
