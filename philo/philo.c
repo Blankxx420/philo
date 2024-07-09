@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 21:34:37 by brguicho          #+#    #+#             */
-/*   Updated: 2024/07/05 23:58:17 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/07/09 18:17:02 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int	ft_philo(int argc, char **argv)
 	init(data->info);
 	if (!argv_are_digits(argv))
 		return (1);
-	set_info(data->info, argc, argv);
+	if(set_info(data->info, argc, argv))
+		return (1);
 	init_data(data);
 	init_philo(data);
 	start_thread(data);

@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 10:41:51 by brguicho          #+#    #+#             */
-/*   Updated: 2024/07/05 23:55:23 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/07/09 18:11:48 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	start_thread(t_data *data)
 	}
 }
 
-void	set_info(t_info *info, int argc, char **argv)
+int	set_info(t_info *info, int argc, char **argv)
 {
 	info->nbr_philo = ft_atouli(argv[1]);
 	info->time_to_die = ft_atouli(argv[2]);
@@ -70,11 +70,10 @@ void	set_info(t_info *info, int argc, char **argv)
 	info->time_to_sleep = ft_atouli(argv[4]);
 	info->nbr_time_to_eat = -1;
 	if (argc == 6)
-	{
 		info->nbr_time_to_eat = ft_atouli(argv[5]);
-		if (info->nbr_time_to_eat <= 0)
-			return ;
-	}
+	if (!check_info(info, argc))
+		return(1);
+	return (0);
 }
 
 void	init(t_info *info)

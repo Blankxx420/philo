@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 21:28:12 by brguicho          #+#    #+#             */
-/*   Updated: 2024/07/05 23:56:44 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/07/09 18:11:06 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <pthread.h>
 # include <string.h>
 # include <sys/time.h>
+
+# define INT_MAX 2147483647
 
 typedef struct s_info
 {
@@ -58,7 +60,7 @@ typedef struct s_data
 
 void	set_philo_var(t_thread *thread);
 void	init_philo(t_data *data);
-void	set_info(t_info *info, int argc, char **argv);
+int		set_info(t_info *info, int argc, char **argv);
 void	init(t_info *info);
 int		init_data(t_data *data);
 
@@ -69,7 +71,7 @@ void	wait_all_philo(t_data *data);
 int		ft_philo(int argc, char **argv);
 void	*ft_routine(void *data);
 int		argv_are_digits(char **argv);
-size_t	ft_atouli(char *str);
+size_t	ft_atoll(char *str);
 size_t	ft_get_current_time(void);
 int		ft_usleep(size_t milliseconds);
 void	ft_bzero(void *dest, unsigned int size);
@@ -79,7 +81,7 @@ void	free_all(t_data *data);
 int		check_all_meal_eaten(t_data *data);
 int		check_if_someone_died(t_data *data);
 void	monitoring(t_data *data);
-
+int		check_info(t_info *infos, int argc);
 void	start_eating(t_thread *thread);
 void	ft_print_is_eating(t_thread *thread);
 void	ft_print_has_taken_fork_r(t_thread *thread);

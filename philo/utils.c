@@ -6,25 +6,38 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 21:10:28 by brguicho          #+#    #+#             */
-/*   Updated: 2024/07/05 23:12:36 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/07/09 18:07:01 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-size_t	ft_atouli(char *str)
+size_t	ft_atoll(char *str)
 {
 	size_t	i;
 	size_t	sum;
+	size_t	sign;
 
-	i = 0;
 	sum = 0;
-	while (str[i])
+	i = 0;
+	sign = 1;
+	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+	{
+		i++;
+	}
+	if (str[i] == '-')
+	{
+		sign *= -1;
+		i++;
+	}
+	else if (str[i] == '+')
+		i++;
+	while ((str[i] - '0' >= 0 && str[i] - '0' <= 9))
 	{
 		sum = sum * 10 + str[i] - '0';
 		i++;
 	}
-	return (sum);
+	return (sum * sign);
 }
 
 void	ft_bzero(void *dest, unsigned int size)
@@ -90,3 +103,4 @@ void	free_all(t_data *data)
 	if (data)
 		free(data);
 }
+
