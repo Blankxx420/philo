@@ -6,13 +6,13 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 21:10:28 by brguicho          #+#    #+#             */
-/*   Updated: 2024/07/10 14:17:41 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/07/10 23:01:54 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-long long int ft_atoll(char *str)
+long long int	ft_atoll(char *str)
 {
 	long long int	i;
 	long long int	sum;
@@ -103,4 +103,3 @@ void	free_all(t_data *data)
 	if (data)
 		free(data);
 }
-

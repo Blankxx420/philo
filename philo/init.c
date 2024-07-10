@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 10:41:51 by brguicho          #+#    #+#             */
-/*   Updated: 2024/07/10 21:43:32 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/07/10 23:02:54 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	start_thread(t_data *data)
 	while (i < data->info->nbr_philo)
 	{
 		if (pthread_create(&data->philo[i].thread,
-			NULL, &ft_routine, &data->philo[i]))
+				NULL, &ft_routine, &data->philo[i]))
 			return (1);
 		i++;
 	}
@@ -74,7 +74,7 @@ int	set_info(t_info *info, int argc, char **argv)
 	if (argc == 6)
 		info->nbr_time_to_eat = (int)ft_atoll(argv[5]);
 	if (!check_info(info, argc))
-		return(1);
+		return (1);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 10:50:53 by brguicho          #+#    #+#             */
-/*   Updated: 2024/07/10 11:00:35 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/07/10 23:01:17 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	argv_are_digits(char **argv)
 		j = 0;
 		while (argv[i][j])
 		{
-			if  (argv[i][0] == '-' && argv[i][0] == '+')
+			if (argv[i][0] == '-' && argv[i][0] == '+')
 				j++;
 			else if (argv[i][j] >= '0' && argv[i][j] <= '9')
 				j++;

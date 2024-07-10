@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 06:56:53 by brguicho          #+#    #+#             */
-/*   Updated: 2024/07/10 14:18:45 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/07/10 22:58:38 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 long long int	ft_get_current_time(void)
 {
 	struct timeval	time;
-	size_t timer;
+	size_t			timer;
 
 	if (gettimeofday(&time, NULL) == -1)
 		write(2, "gettimeofday() error\n", 22);
