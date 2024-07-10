@@ -6,17 +6,17 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 21:10:28 by brguicho          #+#    #+#             */
-/*   Updated: 2024/07/09 18:07:01 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/07/10 14:17:41 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-size_t	ft_atoll(char *str)
+long long int ft_atoll(char *str)
 {
-	size_t	i;
-	size_t	sum;
-	size_t	sign;
+	long long int	i;
+	long long int	sum;
+	long long int	sign;
 
 	sum = 0;
 	i = 0;

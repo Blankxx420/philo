@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 10:06:19 by brguicho          #+#    #+#             */
-/*   Updated: 2024/07/10 09:43:48 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/07/10 14:38:24 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	start_eating(t_thread *thread)
 	pthread_mutex_unlock(&thread->data->meal);
 	usleep(thread->data->info->time_to_eat * 1000);
 	pthread_mutex_lock(&thread->data->meal);
-	thread->last_timestamp = ft_get_current_time();
+	thread->last_timestamp = ft_get_current_time(); 
 	pthread_mutex_unlock(&thread->data->meal);
 	pthread_mutex_unlock(thread->own_fork);
 	pthread_mutex_unlock(thread->left_fork);
@@ -77,8 +77,7 @@ void	*ft_routine(void *threads)
 			return (NULL);
 		if (!check_dead(thread))
 			start_eating(thread);
-		if (!check_dead(thread))
-			start_sleeping(thread);
+		start_sleeping(thread);
 		if (!check_dead(thread))
 			ft_print_is_thinking(thread);
 		usleep(100);

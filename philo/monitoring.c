@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 10:06:48 by brguicho          #+#    #+#             */
-/*   Updated: 2024/07/05 23:57:38 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/07/10 14:42:13 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	check_if_someone_died(t_data *data)
 	while (i < data->info->nbr_philo)
 	{
 		pthread_mutex_lock(&data->meal);
+		printf("ICI %lld, %lld", ft_get_current_time() - data->philo[i].last_timestamp, data->info->time_to_die);
 		if (ft_get_current_time() - data->philo[i].last_timestamp
 			> data->info->time_to_die)
 		{
@@ -66,7 +67,7 @@ int	check_if_someone_died(t_data *data)
 			data->flag_dead = 1;
 			pthread_mutex_unlock(&data->dead);
 			pthread_mutex_lock(&data->print);
-			printf("%ld %d died\n", ft_get_current_time()
+			printf("%lld %d died\n", ft_get_current_time()
 				- data->start_time, data->philo[i].id);
 			pthread_mutex_unlock(&data->print);
 			pthread_mutex_unlock(&data->meal);

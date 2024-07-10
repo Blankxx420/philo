@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:59:06 by brguicho          #+#    #+#             */
-/*   Updated: 2024/07/10 09:53:19 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/07/10 14:09:10 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ void	ft_print_is_thinking(t_thread *thread)
 void	ft_print_is_sleeping(t_thread *thread)
 {
 	size_t	time;
-
+	if(check_dead(thread))
+		return ;
 	pthread_mutex_lock(&thread->data->print);
 	time = ft_get_current_time() - thread->data->start_time;
 	printf("%ld %d is sleeping\n", time, thread->id);

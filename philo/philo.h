@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 21:28:12 by brguicho          #+#    #+#             */
-/*   Updated: 2024/07/10 09:43:02 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/07/10 14:27:33 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@
 typedef struct s_info
 {
 	int		nbr_philo;
-	size_t	time_to_die;
-	size_t	time_to_eat;
-	size_t	time_to_sleep;
+	long long int	time_to_die;
+	long long int	time_to_eat;
+	long long int	time_to_sleep;
 	int		nbr_time_to_eat;
 }				t_info;
 
@@ -36,7 +36,7 @@ struct	s_data;
 typedef struct s_thread
 {
 	int				id;
-	size_t			last_timestamp;
+	long long int	last_timestamp;
 	int				nbr_meals_eaten;
 	pthread_t		thread;
 	pthread_mutex_t	*left_fork;
@@ -55,7 +55,7 @@ typedef struct s_data
 	pthread_mutex_t	print;
 	int				flag_rdy;
 	int				flag_dead;
-	size_t			start_time;
+	long long int			start_time;
 }				t_data;
 
 void	set_philo_var(t_thread *thread);
@@ -70,8 +70,8 @@ void	wait_all_philo(t_data *data);
 int		ft_philo(int argc, char **argv);
 void	*ft_routine(void *data);
 int		argv_are_digits(char **argv);
-size_t	ft_atoll(char *str);
-size_t	ft_get_current_time(void);
+long long int	ft_atoll(char *str);
+long long int	ft_get_current_time(void);
 int		ft_usleep(size_t milliseconds);
 void	ft_bzero(void *dest, unsigned int size);
 void	*ft_calloc(size_t elementcount, size_t elementcize);

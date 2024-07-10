@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 10:50:53 by brguicho          #+#    #+#             */
-/*   Updated: 2024/07/09 18:09:01 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/07/10 11:00:35 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	argv_are_digits(char **argv)
 
 int	check_info(t_info *infos, int argc)
 {
-	if (infos->nbr_philo< 1 || infos->time_to_die < 1
+	if (infos->nbr_philo < 1 || infos->time_to_die < 1
 		|| infos->time_to_eat < 1 || infos->time_to_sleep < 1)
 		return (0);
 	if ((argc == 6 && infos->nbr_time_to_eat < 0)

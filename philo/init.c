@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 10:41:51 by brguicho          #+#    #+#             */
-/*   Updated: 2024/07/10 09:48:14 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/07/10 14:39:08 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	init_philo(t_data *data)
 		data->philo[i].nbr_meals_eaten = 0;
 		data->philo[i].id = i + 1;
 		data->philo[i].data = data;
-		data->philo[i].thread = 0;
 		data->philo[i].last_timestamp = 0;
 		i++;
 	}
@@ -66,13 +65,13 @@ int	start_thread(t_data *data)
 
 int	set_info(t_info *info, int argc, char **argv)
 {
-	info->nbr_philo = ft_atoll(argv[1]);
+	info->nbr_philo = (int)ft_atoll(argv[1]);
 	info->time_to_die = ft_atoll(argv[2]);
 	info->time_to_eat = ft_atoll(argv[3]);
 	info->time_to_sleep = ft_atoll(argv[4]);
 	info->nbr_time_to_eat = -1;
 	if (argc == 6)
-		info->nbr_time_to_eat = ft_atoll(argv[5]);
+		info->nbr_time_to_eat = (int)ft_atoll(argv[5]);
 	if (!check_info(info, argc))
 		return(1);
 	return (0);
