@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 21:28:12 by brguicho          #+#    #+#             */
-/*   Updated: 2024/07/10 00:12:19 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/07/10 09:43:02 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	ft_bzero(void *dest, unsigned int size);
 void	*ft_calloc(size_t elementcount, size_t elementcize);
 void	free_philos(t_data *data);
 void	free_all(t_data *data);
+int		check_dead(t_thread *thread);
 int		check_all_meal_eaten(t_data *data);
 int		check_if_someone_died(t_data *data);
 void	monitoring(t_data *data);

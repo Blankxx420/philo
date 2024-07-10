@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 10:41:51 by brguicho          #+#    #+#             */
-/*   Updated: 2024/07/10 00:15:25 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/07/10 09:48:14 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int	init_philo(t_data *data)
 		data->philo[i].last_timestamp = 0;
 		i++;
 	}
+	if (data->info->nbr_philo != 1)
+		data->philo[0].left_fork = data->philo[i - 1].own_fork;
 	return (0);
 }
 
