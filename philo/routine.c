@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 10:06:19 by brguicho          #+#    #+#             */
-/*   Updated: 2024/07/10 14:38:24 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/07/10 21:39:19 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,6 @@ void	*ft_routine(void *threads)
 	t_thread	*thread;
 
 	thread = (t_thread *)threads;
-	wait_all_philo(thread->data);
-	pthread_mutex_lock(&thread->data->print);
-	thread->data->start_time = ft_get_current_time();
-	pthread_mutex_unlock(&thread->data->print);
 	if (thread->id % 2 == 0)
 	{
 		usleep(100);

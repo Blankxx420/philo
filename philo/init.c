@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 10:41:51 by brguicho          #+#    #+#             */
-/*   Updated: 2024/07/10 14:39:08 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/07/10 21:43:32 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	init_philo(t_data *data)
 	int	i;
 
 	i = 0;
+	data->start_time = ft_get_current_time();
 	while (i < data->info->nbr_philo)
 	{
 		data->philo[i].own_fork = ft_calloc(1, sizeof(pthread_mutex_t));
@@ -29,7 +30,7 @@ int	init_philo(t_data *data)
 		data->philo[i].nbr_meals_eaten = 0;
 		data->philo[i].id = i + 1;
 		data->philo[i].data = data;
-		data->philo[i].last_timestamp = 0;
+		data->philo[i].last_timestamp = data->start_time;
 		i++;
 	}
 	if (data->info->nbr_philo != 1)
